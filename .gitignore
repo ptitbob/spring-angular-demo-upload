@@ -1,0 +1,46 @@
+.idea
+server/*.iml
+client/*.iml
+
+
+server/target/
+!.mvn/wrapper/maven-wrapper.jar
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+client/dist
+client/dist-server
+client/tmp
+/out-tsc
+
+# dependencies
+client/node_modules
+
+# IDEs and editors
+
+# misc
+client/.sass-cache
+client/connect.lock
+client/coverage
+client/libpeerconnection.log
+client/npm-debug.log
+client/testem.log
+client/typings
+
+# e2e
+client/e2e/*.js
+clent/e2e/*.map
+
+# System Files
+.DS_Store
+Thumbs.db
+
+client/yarn.lock

@@ -1,0 +1,41 @@
+=== le serveur
+
+Il faut d'abord créer une API REST pour uploader le fichier.
+Pour mon test, il renvera seulement une structure avec le nom du fichier et la taille de celui-ci.
+
+Je crée un endpoint sur le verbe `POST` :
+
+[source,java]
+----
+@PostMapping(value = "/upload", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+public ResponseEntity<FileInformation> uploadFile(
+  @RequestParam(name = "data") MultipartFile multipartFile
+) throws UploadFileException {
+  if (multipartFile == null || multipartFile.isEmpty()) {
+    throw new UploadFileException();
+  }
+  return new ResponseEntity<>(new FileInformation(multipartFile.getOriginalFilename(), multipartFile.getSize()), HttpStatus.CREATED);
+}
+----
+
+Et pour tester l'upload, c'est simple :
+
+[source,shell]
+----
+http -f POST :8080/upload data@data.txt
+----
+
+Voici le retour de l'appel :
+
+[source,shell]
+----
+HTTP/1.1 201
+Content-Type: application/json;charset=UTF-8
+Date: Mon, 26 Feb 2018 22:57:33 GMT
+Transfer-Encoding: chunked
+
+{
+    "filename": "data.txt",
+    "size": 39
+}
+----
