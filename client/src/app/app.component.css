@@ -1,0 +1,4 @@
+.file-upload-information {
+  display: flex;
+  flex-direction: column;
+}
