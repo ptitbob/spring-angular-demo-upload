@@ -45,7 +45,7 @@ export class AppComponent implements OnInit {
     ;
     const data: FormData = new FormData();
     data.append(`data`, this.file, this.file.name );
-    // Pas d'ajout d'header, angular le fait lui même !
+    // Pas d'ajout d'header exposant le content-type, le framework le fait pour vous.
     this.httpClient.post(
       '/api/upload',
       data
