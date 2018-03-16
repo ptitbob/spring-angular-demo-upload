@@ -18,31 +18,35 @@ export class AppComponent implements OnInit {
 
   fileInformation: FileInformation;
 
+  @ViewChild('fileInput')
+  fileInput: ElementRef;
+
   constructor(private httpClient: HttpClient, private formBuilder: FormBuilder) {
 
   }
 
   ngOnInit(): void {
     this.uploadForm = this.formBuilder.group({
+      filename: '',
       userFile: null
     })
   }
 
-  selectFile(event) {
-    let reader = new FileReader();
+  onSelectFile(event) {
     if(event.target.files && event.target.files.length > 0) {
       this.file = event.target.files[0];
+      this.uploadForm.get('filename').setValue(this.file.name);
       console.log(`file: ${JSON.stringify(this.file.name)}`);
       console.log(`file: ${JSON.stringify(this.file.size)}`);
       this.fileInformation = null;
     }
   }
 
+  selectFile(): void {
+    this.fileInput.nativeElement.click();
+  }
+
   sendFile() {
-    const httpParams = new HttpHeaders()
-      .append('Content-Type', 'multipart/form-data')
-      .append('enctype', 'multipart/form-data')
-    ;
     const data: FormData = new FormData();
     data.append(`data`, this.file, this.file.name );
     // Pas d'ajout d'header exposant le content-type, le framework le fait pour vous.

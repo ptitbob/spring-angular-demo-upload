@@ -3,20 +3,35 @@
   <h1>
     {{ title }}
   </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+  <img width="200" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
 </div>
-<h2>Upload de fichier: </h2>
-<form [formGroup]="uploadForm" >
-  <input type="file" id="userFile" (change)="selectFile($event)">
-  <input type="button" (click)="sendFile()" value="Envoyer">
-</form>
-<div *ngIf="fileInformation" class="file-upload-information">
-  <div>
-    <span>Nom : </span>
-    <span>{{fileInformation.filename}}</span>
-  </div>
-  <div>
-    <span>Taille : </span>
-    <span>{{fileInformation.size}}</span>
-  </div>
-</div>
+<mat-card class="example-card" style="margin: 3em; background-color: gainsboro">
+  <mat-card-header>
+    <h2>Upload de fichier</h2>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="uploadForm" >
+      <input type="file" id="userFile" (change)="onSelectFile($event)" #fileInput style="display: none">
+      <mat-form-field >
+        <input matInput formControlName="filename" placeholder="Fichier" readonly>
+      </mat-form-field>
+      <button mat-raised-button (click)="selectFile()">Selectionner</button>
+    </form>
+    <button mat-raised-button (click)="sendFile()" >Envoyer</button>
+  </mat-card-content>
+</mat-card>
+<mat-card *ngIf="fileInformation" class="example-card" style="margin: 3em; background-color: lightskyblue">
+  <mat-card-header>
+    <h2>Fichier reçu par le serveur</h2>
+  </mat-card-header>
+  <mat-card-content>
+    <div>
+      <span>Nom : </span>
+      <span>{{fileInformation.filename}}</span>
+    </div>
+    <div>
+      <span>Taille : </span>
+      <span>{{fileInformation.size}}</span>
+    </div>
+  </mat-card-content>
+</mat-card>
